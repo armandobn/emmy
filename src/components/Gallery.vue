@@ -20,11 +20,13 @@
           :src="image.url"
           :alt="image.description || 'Imagen de galería'"
           class="w-full h-auto object-cover rounded shadow"
+         
         />
         <!-- Información superpuesta al pasar el cursor -->
         <div
           class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-60 text-white text-center opacity-0 group-hover:opacity-100 transition-opacity"
-        >
+          @click="openImage(index)" 
+          >
           <p class="p-2 text-sm sm:text-base lg:text-lg">
             Autor: {{ image.autor || "" }}
           </p>
