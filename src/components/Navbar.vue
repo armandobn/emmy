@@ -8,7 +8,7 @@
             alt="logo" 
             class="w-12 h-12"
           />
-          <span class="text-3xl font-bold text-white drop-shadow-lg">Emmy</span>
+          <span class="text-3xl font-bold text-white drop-shadow-lg">Emmy21of</span>
         </div>
         
         <!-- Links -->

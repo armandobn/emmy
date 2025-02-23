@@ -1,5 +1,11 @@
 <template>
   <div class="p-4">
+    <div class="text-center p-4">
+      <button @click="descargarZip" class=" bg-violet-400 text-white px-4 py-2 rounded-lg">
+        Descargar Todas las Imágenes
+      </button>
+    </div>
+
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
     </div>
@@ -41,6 +47,10 @@
           >
             Visitar Red Social
           </a>
+
+          <a :href="image.url" :download="image.autor" class="text-green-200 hover:text-green-400 hover:underline cursor-pointer transition" target="_blank" >
+            Descargar
+          </a>
         </div>
       </div>
     </div>
@@ -60,11 +70,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import ImageViewer from "./ImageComponent.vue";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 // Estado reactivo para imágenes, loading y error
 const images = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const zip_images =  ref([]);
 
 // Función para cargar las imágenes desde una API
 const fetchData = async () => {
@@ -75,12 +88,39 @@ const fetchData = async () => {
     );
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     images.value = await response.json();
+    for (let i = 0; i < images.value.length; i++) {
+      zip_images.value.push(images.value[i].url);
+    }
+
+    console.log(zip_images.value);
   } catch (err) {
     error.value = err.message;
   } finally {
     loading.value = false;
   }
 };
+
+
+const descargarZip = async () => {
+  const zip = new JSZip();
+
+  // Descargar cada imagen y agregarla al ZIP
+  const promesas = zip_images.value.map(async (url, index) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    zip.file(`imagen_${index + 1}.png`, blob);
+  });
+
+  await Promise.all(promesas);
+
+  // Generar el archivo ZIP y descargarlo
+  zip.generateAsync({ type: "blob" }).then((content) => {
+    saveAs(content, "imagenes.zip");
+  });
+};
+
+
+
 
 // Cargar datos al montar
 onMounted(() => fetchData());
