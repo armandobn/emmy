@@ -17,7 +17,6 @@ const fetchData = async () => {
       throw new Error(`Error: ${response.status}`); // Maneja errores HTTP
     }
     data.value = await response.json(); // Convierte la respuesta a JSON
-    console.log(data.value)
   } catch (err) {
     error.value = err.message; // Guarda el mensaje de error
     console.error('Error fetching data:', err);

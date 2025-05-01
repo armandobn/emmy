@@ -92,7 +92,6 @@ const fetchData = async () => {
       zip_images.value.push(images.value[i].url);
     }
 
-    console.log(zip_images.value);
   } catch (err) {
     error.value = err.message;
   } finally {
