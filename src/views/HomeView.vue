@@ -12,7 +12,7 @@ const error = ref(null);
 const fetchData = async () => {
   try {
     loading.value = true; // Indica que está cargando
-    const response = await fetch('https://res.cloudinary.com/dglptwdlb/raw/upload/v1733686551/lista_dbccve.json'); // Cambia la URL por tu endpoint
+    const response = await fetch('https://res.cloudinary.com/dgsidkv4q/raw/upload/v1752428571/lista_galeria_lmdwbo.json'); // Cambia la URL por tu endpoint
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`); // Maneja errores HTTP
     }

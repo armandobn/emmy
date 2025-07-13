@@ -46,7 +46,7 @@ const fetchData = async () => {
   try {
     loading.value = true;
     const response = await fetch(
-      "https://res.cloudinary.com/dglptwdlb/raw/upload/v1746133033/albunes_music_data_ld6rsz.json"
+      "https://res.cloudinary.com/dgsidkv4q/raw/upload/v1752429406/album_musica_hucp6h.json"
     );
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     albums.value = await response.json();
